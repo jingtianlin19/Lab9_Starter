@@ -88,6 +88,12 @@
   </main>
 
   <script>
+    class UnexpectedInputError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "UnexpectedInputError";
+      }
+    }
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -95,7 +101,20 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      try {
+        let result = eval(`${firstNum}${operator}${secondNum}`);
+        output.innerHTML = result;
+      }
+      catch (err) {
+        console.log(typeof (firstNum))
+        if (!firstNum || !secondNum || !(typeof firstNum == Number) || !(typeof secondNum == Number)) {
+          output.innerHTML = 'invalid input';
+          throw new UnexpectedInputError('please insert a number');
+        }
+        else {
+          throw new Error('something went wrong');
+        }
+      }
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
@@ -139,10 +158,10 @@
 
     errorBtns[9].addEventListener('click', () => {
       console.groupEnd('Console Grouup Demo');
-    }); 
+    });
 
     errorBtns[10].addEventListener('click', () => {
-      console.table ([
+      console.table([
         {
           name: 'this is ',
           value: 10
@@ -156,27 +175,28 @@
           value: 1001,
         }
       ])
-    }); 
+    });
 
     errorBtns[11].addEventListener('click', () => {
       console.time('Timer Button');
-    }); 
+    });
 
     errorBtns[12].addEventListener('click', () => {
       console.timeEnd('Timer Button');
-    }); 
+    });
 
     errorBtns[13].addEventListener('click', () => {
-      const outer = () => {deep();};
-      const deep = () => {deeper();};
-      const deeper = () => {deepest();};
-      const deepest = () => {console.trace();};
+      const outer = () => { deep(); };
+      const deep = () => { deeper(); };
+      const deeper = () => { deepest(); };
+      const deepest = () => { console.trace(); };
       outer();
-    }); 
+    });
 
     errorBtns[14].addEventListener('click', () => {
       throw new Error('something went wrong');
-    }); 
+    });
+
   </script>
 </body>
 
