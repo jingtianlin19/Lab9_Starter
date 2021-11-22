@@ -86,7 +86,13 @@
       <button>Trigger a Global Error</button>
     </section>
   </main>
-
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({
+      token: "f674d73d419f42699a25bb15dce5ee80"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
   <script>
     TrackJS.track('Testing TrackJS!');                  
     class UnexpectedInputError extends Error {
@@ -200,13 +206,7 @@
 
   </script>
 
-  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script>
-    window.TrackJS && TrackJS.install({
-      token: "f674d73d419f42699a25bb15dce5ee80"
-      // for more configuration options, see https://docs.trackjs.com
-    });
-  </script>
+
 
 </body>
 
